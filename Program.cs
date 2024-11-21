@@ -19,6 +19,9 @@ builder.Services.AddDbContext<ClienteContext>(options =>
 builder.Services.AddDbContext<FornecedorContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoFornecedores")));
 
+builder.Services.AddDbContext<ColaboradorContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoColaboradores")));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
