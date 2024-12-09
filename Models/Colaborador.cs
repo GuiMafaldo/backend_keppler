@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend_thorin.Models;
+using backend_thorin.Interface;
+
 
 namespace backend_thorin.Models
 {
-    public class Colaborador
+    public class Colaborador: IUsuario
     {
         public int Id { get; set; }
         public string Nome { get; set; }

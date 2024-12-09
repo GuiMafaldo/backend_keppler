@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using backend_thorin.Context;
 using backend_thorin.Models;
+using backend_thorin.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend_thorin.Controllers
@@ -16,25 +17,42 @@ namespace backend_thorin.Controllers
                 _context = context;
             }
             [HttpPost("login")]
-                public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] LoginRequest request, bool isAdmin)
+        {
+            if (request == null || string.IsNullOrEmpty(request.Nome) || string.IsNullOrEmpty(request.Senha))
+            {
+                return BadRequest("Dados de login inválidos.");
+            }
+
+            object usuario = null;
+
+            // Se for admin
+            if (isAdmin)
+            {
+                usuario = _context.Administracao
+                    .FirstOrDefault(u => u.Nome == request.Nome && u.Senha == request.Senha);
+
+                // Verifique se o resultado é do tipo IAdmin
+                if (usuario == null)
                 {
-                    if (request == null || string.IsNullOrEmpty(request.Nome) || string.IsNullOrEmpty(request.Senha))
-                    {
-                        return BadRequest("Dados de login inválidos.");
-                    }
-
-                    var usuario = _context.Administracao
-                        .FirstOrDefault(u => u.Nome == request.Nome && u.Senha == request.Senha);
-
-                    if (usuario == null)
-                    {
-                        return Unauthorized("Credenciais inválidas.");
-                    }
-
-                    // Retorne um objeto que indique sucesso
-                    return Ok(new { success = true });
+                    return Unauthorized("Credenciais inválidas para admin.");
                 }
-           
+            }
+            else  // Se for colaborador
+            {
+                usuario = _context.Colaborador
+                    .FirstOrDefault(u => u.Username == request.Username && u.Password == request.Password);
+
+                // Verifique se o resultado é do tipo IUsuario
+                if (usuario == null)
+                {
+                    return Unauthorized("Credenciais inválidas para colaborador.");
+                }
+            }
+
+            // Se o usuário foi encontrado
+            return Ok(new { success = true });
+        }    
 
         // GET: admin/admin/{id}
         [HttpGet("{id}")]
@@ -97,5 +115,6 @@ namespace backend_thorin.Controllers
             _context.SaveChanges();
             return NoContent();
         }
-    }
 }
+}
+

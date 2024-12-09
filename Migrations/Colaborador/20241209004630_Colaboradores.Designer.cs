@@ -10,9 +10,9 @@ using backend_thorin.Context;
 
 namespace backend_thorin.Migrations
 {
-    [DbContext(typeof(AdminContext))]
-    [Migration("20240827205638_CreateUserAdmin")]
-    partial class CreateUserAdmin
+    [DbContext(typeof(ColaboradorContext))]
+    [Migration("20241209004630_Colaboradores")]
+    partial class Colaboradores
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace backend_thorin.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("backend_thorin.Models.Administracao", b =>
+            modelBuilder.Entity("backend_thorin.Models.Colaborador", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,24 +32,29 @@ namespace backend_thorin.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TipoUsuario")
-                        .HasColumnType("int");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Administracao");
+                    b.ToTable("Colaborador");
                 });
 #pragma warning restore 612, 618
         }

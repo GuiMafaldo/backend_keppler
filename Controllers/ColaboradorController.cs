@@ -16,7 +16,6 @@ namespace backend_thorin.Controllers
         {
             _context = context;
         }
-
         // GET: lista todos os colaboradores
         [HttpGet("colaborador")]
         public async Task<ActionResult<IEnumerable<Colaborador>>> GetColaborador()
@@ -36,6 +35,7 @@ namespace backend_thorin.Controllers
             }
             return colaborador;
         }
+
         // POST: adiciona um colaborador  AO BANCO DE DADOS
         [HttpPost("colaborador")]
         public async Task<ActionResult<Colaborador>> PostColaborador(Colaborador colaborador)

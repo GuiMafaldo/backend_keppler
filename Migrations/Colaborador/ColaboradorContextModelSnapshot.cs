@@ -7,7 +7,7 @@ using backend_thorin.Context;
 
 #nullable disable
 
-namespace backend_thorin.Migrations.Colaborador
+namespace backend_thorin.Migrations
 {
     [DbContext(typeof(ColaboradorContext))]
     partial class ColaboradorContextModelSnapshot : ModelSnapshot

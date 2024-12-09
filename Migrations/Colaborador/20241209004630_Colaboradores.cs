@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace backend_thorin.Migrations.Colaborador
+namespace backend_thorin.Migrations
 {
     /// <inheritdoc />
     public partial class Colaboradores : Migration

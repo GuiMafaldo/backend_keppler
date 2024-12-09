@@ -1,3 +1,4 @@
+using backend_thorin.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using backend_thorin.Models;
 
 namespace backend_thorin.Models
 {
-    public class Administracao
+    public class Administracao: IAdmin
     {
         public int Id { get; set; }
         public string Nome { get; set; }
